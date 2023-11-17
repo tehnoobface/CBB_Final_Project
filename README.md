@@ -3,9 +3,13 @@
 
 ## Presentation Outline:
 - Start by presenting the data from Kaggle folder, note columns and differences between 2020 and the rest of the data, introduce inital goal
-Initial Goal: Make predictions for 2020 post-season based on different columns: W/L Ratio, BARTHAG (powerranking statistic), and Rank
+Initial Goal: Make predictions for 2020 post-season based on different columns: W/L Ratio, BARTHAG (power ranking statistic), SEED, and RK (maybe)
 - Show how we merged the data, present initial EDA
 - Show how inital EDA guided methods to achieve prediction goals
+- Introduce different methods of prediction (3 total methods)
+- Show results of each method
+- Assess each model/method and show how it may relate to final formula/method for prediction
+- Show results, discuss outcomes, and potential draw backs or other methods of prediction not included in our Presentation
 
 ## 11/10
 - Ideate and create plan for project (What do we want to achieve? How do we want to achieve it? How do we plan to present it? Refer to Presentation Outline)
