@@ -3,7 +3,7 @@
 
 ## Presentation Outline:
 - Start by presenting the data from Kaggle folder, note columns and differences between 2020 and the rest of the data, introduce inital goal
-Initial Goal: Make predictions for 2020 post-season based on different columns: W/L Ratio, BARTHAG (power ranking statistic), SEED, and RK (maybe)
+- Initial Goal: Make predictions for 2020 post-season based on different columns: W/L Ratio, BARTHAG (power ranking statistic), SEED, and RK (maybe)
 - Show how we merged the data, present initial EDA
 - Show how inital EDA guided methods to achieve prediction goals
 - Introduce different methods of prediction (3 total methods)
@@ -22,6 +22,12 @@ Initial Goal: Make predictions for 2020 post-season based on different columns: 
 - Merge cbb and cbb20 with variables we previously identified (YEAR == '2020' should have NaN values for POSTSEASON and SEASON_FINAL) and define as dataframe cbb_all
 - Using cbb dataframe, plot and find correlation coefficient (Spearman method) for variables BARTHAG (power ranking statistic) and SEASON_FINAL, SEED and SEASON_FINAL, W and SEASON_FINAL, W/L (variable derived from W and G) and SEASON_FINAL
 - Save this EDA to guide next steps/transition into prediction methods
+
+## 11/20
+- Tested "BracketManager" package found on https://github.com/cristiean/bracket/tree/master
+- Put in place bracket_package folder, with BracketMaker's github copied inside in folder "BracketMaker-0.4.0"
+- Created __init__.py and bracket_module.py, the end goal package.
+- New Goal: Get BracketManager to work with my data and use bracket.py as the foundation of our package.
 
 - ## TO DO:
 - Introduce different methods of prediction (3 total methods)
