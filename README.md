@@ -1,16 +1,6 @@
 # CBB_Final_Project
 ## By: Kayla Tansiongco and Maclean Sherren
 
-## Presentation Outline:
-- Start by presenting the data from Kaggle folder, note columns and differences between 2020 and the rest of the data, introduce inital goal
-- Initial Goal: Make predictions for 2020 post-season based on different columns: W/L Ratio, BARTHAG (power ranking statistic), SEED, and RK (maybe)
-- Show how we merged the data, present initial EDA
-- Show how inital EDA guided methods to achieve prediction goals
-- Introduce different methods of prediction (3 total methods)
-- Show results of each method
-- Assess each model/method and show how it may relate to final formula/method for prediction
-- Show results, discuss outcomes, and potential draw backs or other methods of prediction not included in our Presentation
-
 ## 11/10
 - Ideate and create plan for project (What do we want to achieve? How do we want to achieve it? How do we plan to present it? Refer to Presentation Outline)
 - Read cbb.csv (includes NCAA seasons 2013 to 2021, excluding 2020) and cbb.20 (just NCAA 2020 season) and define two separate dataframes, cbb and cbb20
@@ -37,4 +27,14 @@
 - Create playoff bracket
 -- If possible, make the methods of prediction simulate the playoff bracket (run outcomes of each game one at a time)
 -- Other potential for python package; Takes bracket and prediction method as inputs and generates a table or bracket of results as an output.
+- Show results, discuss outcomes, and potential draw backs or other methods of prediction not included in our Presentation
+
+## Presentation Outline:
+- Start by presenting the data from Kaggle folder, note columns and differences between 2020 and the rest of the data, introduce inital goal
+- Initial Goal: Make predictions for 2020 post-season based on data from other years. Want to use various predictors/columns such as: W/L Ratio, BARTHAG (power ranking statistic), SEED, and RK (maybe). Combine our findings to come up with a final prediction method.
+- Show how we merged the raw data, present initial EDA (correlation plots/coefficients)
+- Show how inital EDA guided methods to achieve prediction goals (some predictors are not as strong as we thought, will adjust and take into consideration as we build a final, all encompassing formula)
+- Introduce different methods of preliminary prediction (3 total methods)
+- Show results of each method
+- Assess each model/method and show how it may relate to final formula/method for prediction
 - Show results, discuss outcomes, and potential draw backs or other methods of prediction not included in our Presentation
