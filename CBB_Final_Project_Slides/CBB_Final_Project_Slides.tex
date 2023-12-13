@@ -139,6 +139,7 @@
   \item Package contains a function that takes a season and method of prediction, then produces simulated results of an NCAA tournament.
   \item Compare predicted results to actual results.
   \item Create a prediction for 2020 NCAA postseason tournament.
+  \item Since seeding was not determined for 2020 postseason, variable RK will be used as a predictor.
 \end{itemize}
 \end{frame}
 
@@ -264,8 +265,12 @@
   \item Method: BARTHAG (Power Rating)
   
       \begin{figure}
-      \centering
-      \includegraphics[width=0.7\linewidth]{example-image} % Replace with barthag method results
+      %\centering
+      \includegraphics[width=0.4\linewidth]{CBB2020_power_west16.png}
+      \includegraphics[width=0.4\linewidth]{CBB2020_power_south16.png}
+      \includegraphics[width=0.4\linewidth]{CBB2020_power_east16.png}
+      \includegraphics[width=0.4\linewidth]{CBB2020_power_midwest16.png}
+      \includegraphics[width=0.6\linewidth]{CBB2020_power_final.png}
     \end{figure}
     
 \end{itemize}
@@ -277,10 +282,13 @@
   \item Method: W (Wins)
   
       \begin{figure}
-      \centering
-      \includegraphics[width=0.7\linewidth]{example-image} % Replace with w method results
+      %\centering
+      \includegraphics[width=0.4\linewidth]{CBB2020_wins_west16.png}
+      \includegraphics[width=0.4\linewidth]{CBB2020_wins_south16.png}
+      \includegraphics[width=0.4\linewidth]{CBB2020_wins_east16.png}
+      \includegraphics[width=0.4\linewidth]{CBB2020_wins_midwest16.png}
+      \includegraphics[width=0.6\linewidth]{CBB2020_wins_final.png}    
     \end{figure}
-    
 \end{itemize}
 \end{frame}
 
@@ -290,9 +298,13 @@
   \item Method: RK (Rank/Equivalent to SEED)
   
       \begin{figure}
-      \centering
-      \includegraphics[width=0.7\linewidth]{example-image} % Replace with seed method results
-    \end{figure}
+      %\centering
+      \includegraphics[width=0.4\linewidth]{CBB2020_rank_west16.png}
+      \includegraphics[width=0.4\linewidth]{CBB2020_rank_south16.png}
+      \includegraphics[width=0.4\linewidth]{CBB2020_rank_east16.png}
+      \includegraphics[width=0.4\linewidth]{CBB2020_rank_midwest16.png}
+      \includegraphics[width=0.6\linewidth]{CBB2020_rank_final.png}    
+      \end{figure}
     
 \end{itemize}
 \end{frame}
@@ -301,9 +313,11 @@
 
 \begin{frame}{Conclusion}
 \begin{itemize}
-  \item Summarize the main findings and their implications.
-  \item Reflect on the success of your project and any limitations.
-  \item Suggest areas for future research or improvements.
+  \item While there is a lot of randomness and uncertainty to account for in the NCAA tournament, there are variables that can accurately predict the outcomes.
+  \item Among the variables observed, power rating was the strongest method of prediction.
+  \item Potential to apply package to other variables as well.
+  \item Aside from our own observations, we could apply further analyses to evaluate the accuracy of our predictors.
+  \item Potential to use same methods to make predictions for future seasons.
 \end{itemize}
 \end{frame}
 
@@ -320,5 +334,19 @@
 \Huge Thank you! Happy Holidays!
 \end{center}
 \end{frame}
+
+\section{References}
+\begin{frame}{References}
+  \begin{itemize}
+    \item Kaggle Dataset
+    \href{https://www.kaggle.com/datasets/andrewsundberg/college-basketball-dataset?select=cbb.csv}{https://www.kaggle.com/datasets/andrewsundberg/college-basketball-dataset?select=cbb.csv}
+    \item 2021 NCAA Tournament Results
+    \href{https://www.ncaa.com/news/basketball-men/article/2022-07-20/2021-ncaa-bracket-scores-stats-records-march-madness-mens-tournament}{https://www.ncaa.com/news/basketball-men/article/2022-07-20/2021-ncaa-bracket-scores-stats-records-march-madness-mens-tournament}
+    \item 2020 Predicted Bracket
+    \href{https://www.ncaa.com/news/basketball-men/article/2020-02-28/ncaa-predictions-projections-2020-bracket-andy-katz}{https://www.ncaa.com/news/basketball-men/article/2020-02-28/ncaa-predictions-projections-2020-bracket-andy-katz}
+    \item BracketMaker (preliminary guide for package structure)
+    \href{https://github.com/klauscurde/BracketMaker}{https://github.com/klauscurde/BracketMaker}
+  \end{itemize}
+  \end{frame}
 
 \end{document}
