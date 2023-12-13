@@ -52,10 +52,10 @@ class Bracket:
             west_teams = ["Gonzaga", "Montana", "Florida", "Stanford", "Penn St.", "Stephenn F. Austin", "Oregon", "New Mexico State", "Colorado", "BYU", "Villanova", "Colgate", "Michigan", "Arkansas", "West Virginia", "North Dakota St."]
             midwest_teams = ["Kansas", "Princeton", "Wisconsin", "Rhode Island", "Arizona", "Liberty", "Michigan St.", "North Texas", "LSU", "Purdue", "Florida St.", "Little Rock", "Marquette", "Indiana", "Dayton", "Winthrop"]
         elif year == '2021':
-            south_teams = []
-            east_teams = []
-            west_teams = []
-            midwest_teams = []
+            south_teams = ["Baylor", "Hartford", "North Carolina", "Wisconsin", "Villanova", "Winthrop", "Purdue", "North Texas", "Texas Tech", "Utah St.", "Arkansas", "Colgate", "Florida", "Virginia Tech", "Ohio St.", "Oral Roberts"]
+            east_teams = ["Michigan", "Texas Southern", "LSU", "St. Bonaventure", "Colorado", "Georgetown", "Florida St.", "UNC Greensboro", "BYU", "UCLA", "Abilene Christian", "Texas", "UConn", "Maryland", "Alabama", "Iona"]
+            west_teams = ["Gonzaga", "Norfolk St.", "Oklahoma", "Missouri", "Creighton", "UC Santa Barbara", "Virginia", "Ohio", "USC", "Drake", "Kansas", "Eastern Washington", "Oregon", "VCU", "Iowa", "Grand Canyon"]
+            midwest_teams = ["Illinois", "Drexel", "Loyola Chicago", "Georgia Tech", "Tennessee", "Oregon St.", "Oklahoma St.", "Liberty", "San Diego St.", "Syracuse", "West Virginia", "Morehead St.", "Clemson", "Rutgers", "Houston", "Cleveland St."]
         
         #south = teams[teams["TEAM"].isin(south_teams)]
         south = teams.loc[teams["TEAM"].isin(south_teams)].set_index("TEAM").reindex(south_teams).reset_index()
@@ -72,7 +72,7 @@ class Bracket:
     def getMethod(self):
         teams = self.teams
         #combine south, east, west, and midwest teams into one "teams" df:
-        print("Select Ranking Method; POWER, RANK, or WIN? ", end='')
+        print("Select Ranking Method; POWER, RANK, WIN, SEED? ", end='')
         rank = input().upper()
         if rank == 'POWER':
             method = getPower(teams)
@@ -83,6 +83,9 @@ class Bracket:
             return method
         elif rank == 'WIN':
             method = getWins(teams)
+            return method
+        elif rank == 'SEED':
+            method = getSeed(teams)
             return method
         else:
             print("Invalid input. Try again.")
@@ -109,7 +112,7 @@ class Bracket:
 
                 if method == 'W' or method == 'BARTHAG':
                     winner = team1 if team1[method] > team2[method] else team2
-                elif method == 'RK':
+                elif method == 'RK' or method == 'SEED':
                     winner = team1 if team1[method] < team2[method] else team2
                 else:
                     print("Invalid method. Try again.")
@@ -136,7 +139,7 @@ class Bracket:
             winner2 = self.east.loc[self.east[method].idxmax()]
             winner3 = self.west.loc[self.west[method].idxmax()]
             winner4 = self.midwest.loc[self.midwest[method].idxmax()]
-        elif method == 'RK':
+        elif method == 'RK' or method == 'SEED':
             winner1 = self.south.loc[self.south[method].idxmin()]
             winner2 = self.east.loc[self.east[method].idxmin()]
             winner3 = self.west.loc[self.west[method].idxmin()]
@@ -149,9 +152,21 @@ class Bracket:
         if method == 'W' or method == 'BARTHAG':
             final_winner1 = winner1 if winner1[method] > winner2[method] else winner2
             final_winner2 = winner3 if winner3[method] > winner4[method] else winner4
-        elif method == 'RK':
-            final_winner1 = winner1 if winner1[method] < winner2[method] else winner2
-            final_winner2 = winner3 if winner3[method] < winner4[method] else winner4
+        elif method == 'RK' or method == 'SEED':
+            if winner1[method] < winner2[method]:
+                final_winner1 = winner1
+            elif winner1[method] > winner2[method]:
+                final_winner1 = winner2
+            else:
+                print("The teams are the same Seed and tied. Selecting Random Winner.")
+                final_winner1 = winner1 if np.random.randint(2) == 0 else winner2
+            if winner3[method] < winner4[method]:
+                final_winner2 = winner3
+            elif winner3[method] > winner4[method]:
+                final_winner2 = winner4
+            else:
+                print("The teams are the same Seed and tied. Selecting Random Winner.")
+                final_winner2 = winner3 if np.random.randint(2) == 0 else winner4
         else:
             print("An Error Occured While Ranking the Final 4.")
             self.getMethod()
@@ -170,20 +185,24 @@ class Bracket:
 def getPower(teams):
     power = 'BARTHAG'
     #power = teams['BARTHAG']
-    print("Power test! ", end='')
+    #print("Power test! ", end='')
     return power
 
 def getRank(teams):
     rank = 'RK'
     #rank = teams['RK']
-    print("Rank test! ", end='')
+    #print("Rank test! ", end='')
     return rank
 
 def getWins(teams):
     wins = 'W'
     #wins = teams['W']
-    print("Win test! ", end='')
+    #print("Win test! ", end='')
     return wins
+
+def getSeed(teams):
+    seed = 'SEED'
+    return seed
 
 
 def run():
