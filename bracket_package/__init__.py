@@ -1,1 +1,1 @@
-from bracket_package import bracket_module
+from bracket_package import bracket

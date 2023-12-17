@@ -22,14 +22,34 @@ git clone https://github.com/tehnoobface/CBB_Final_Project.git
 
 This package is inspired by the 2020 NCAA D1 basketball season, which ended without a playoff tournament due to the pandemic. It takes a parameter and predicts and entire playoff bracket including the final four and tournament winner based on the selected method.
 
-Here is a quick demo of the 2020 data:
+Here is a quick demo of the 2020 data once the repository with the data and executable have been cloned:
 ```console
-python bracket_package
+cd bracket_package/
 
+python bracket
+...
+Choose a dataset. Data found in /data, with 2020 test dataset being ../data/cbb20.csv : data/cbb20.csv
+Select Ranking Method; POWER, RANK, WIN, SEED? Win
+Enter the Playoff Bracket Year (ex. '2020'): 2020
 
+Round 1:
+        Baylor vs Texas Southern -> Winner: Baylor
+        Cincinnati vs VCU -> Winner: Cincinnati
+        Illinois vs East Tennessee St. -> Winner: East Tennessee St.
+        Auburn vs College of Charleston -> Winner: Auburn
+        Iowa vs Mississippi St. -> Winner: Mississippi St.
+        Seton Hall vs Bowling Green -> Winner: Bowling Green
+        Ohio St. vs Northern Iowa -> Winner: Northern Iowa
+        Louisville vs Murray St. -> Winner: Louisville
+Round 2:
+
+...
+
+Final Four: East Tennessee St., Vermont, Gonzaga, Liberty
+
+Playoff Finals: East Tennessee St. vs Gonzaga
+
+NCAA D1 Division Champs: East Tennessee St.
 ```
 
-# Licensing Information
-
-
-# Contact and Citation Details
+The output is cut here to save space, but the display would include each region's rounds, 1-4, with each returning a team to send to the Final Four.
