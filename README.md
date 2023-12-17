@@ -12,7 +12,7 @@ pandas>=2.1.2, seaborn>=0.13.0, and setuptools>=68.0.0.
 pip install "git+https://github.com/tehnoobface/CBB_Final_Project.git"
 ```
 
-Additionally, the repository containing the python code and executable script for the bracket_package, bracket_module, and all cleaned test data can be cloned with the following code:
+Additionally, the repository containing the python code and executable script for the bracket_package - bracket - and all cleaned test data can be cloned with the following code:
 
 ```console
 git clone https://github.com/tehnoobface/CBB_Final_Project.git
@@ -27,6 +27,9 @@ Here is a quick demo of the 2020 data once the repository with the data and exec
 cd bracket_package/
 
 python bracket
+```
+
+```
 ...
 Choose a dataset. Data found in /data, with 2020 test dataset being ../data/cbb20.csv : data/cbb20.csv
 Select Ranking Method; POWER, RANK, WIN, SEED? Win
