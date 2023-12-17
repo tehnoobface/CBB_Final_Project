@@ -24,11 +24,11 @@ This package is inspired by the 2020 NCAA D1 basketball season, which ended with
 
 Here is a quick demo of the 2020 data once the repository with the data and executable have been cloned:
 ```console
-cd bracket_package/
+cd CBB_FINAL_PROJECT/bracket_package/
 
 python bracket
 ```
-
+This code will launch the package, which takes command line inputs and outputs the playoff bracket results:
 ```
 Choose a dataset. Data found in /data, with 2020 test dataset being ../data/cbb20.csv : data/cbb20.csv
 Select Ranking Method; POWER, RANK, WIN, SEED? Win
