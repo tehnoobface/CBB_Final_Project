@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Stuff we added:
+cbb_clean_eda.ipynb
+cbb_data_analysis.ipynb
+
 # Distribution / packaging
 .Python
 build/
