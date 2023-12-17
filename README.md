@@ -9,10 +9,10 @@ The pip package manager is used to install the bracket_package. The package requ
 pandas>=2.1.2, seaborn>=0.13.0, and setuptools>=68.0.0.
 
 ```console
-pip install https://github.com/tehnoobface/CBB_Final_Project.git
+pip install "git+https://github.com/tehnoobface/CBB_Final_Project.git"
 ```
 
-Alternatively, the repository containing the python code and executable script for the bracket_package, bracket_module, can be cloned with the following code:
+Additionally, the repository containing the python code and executable script for the bracket_package, bracket_module, and all cleaned test data can be cloned with the following code:
 
 ```console
 git clone https://github.com/tehnoobface/CBB_Final_Project.git
