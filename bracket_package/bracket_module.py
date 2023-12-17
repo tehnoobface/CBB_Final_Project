@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 #import math
@@ -21,7 +21,7 @@ class Bracket:
     def getData(self):
         #teams = pd.read_csv('data/cbb20.csv')
         #return teams
-        print("Choose a dataset. The 2020 test dataset is ../data/cbb20.csv : ", end='')
+        print("Choose a dataset. Data found in /data, with 2020 test dataset being ../data/cbb20.csv : ", end='')
         teams = pd.read_csv(input())    # Input path to (and including) the dataset
         #print(teams.head())
         return teams
@@ -56,6 +56,24 @@ class Bracket:
             east_teams = ["Michigan", "Texas Southern", "LSU", "St. Bonaventure", "Colorado", "Georgetown", "Florida St.", "UNC Greensboro", "BYU", "UCLA", "Abilene Christian", "Texas", "UConn", "Maryland", "Alabama", "Iona"]
             west_teams = ["Gonzaga", "Norfolk St.", "Oklahoma", "Missouri", "Creighton", "UC Santa Barbara", "Virginia", "Ohio", "USC", "Drake", "Kansas", "Eastern Washington", "Oregon", "VCU", "Iowa", "Grand Canyon"]
             midwest_teams = ["Illinois", "Drexel", "Loyola Chicago", "Georgia Tech", "Tennessee", "Oregon St.", "Oklahoma St.", "Liberty", "San Diego St.", "Syracuse", "West Virginia", "Morehead St.", "Clemson", "Rutgers", "Houston", "Cleveland St."]
+        elif year == '2022':
+            south_teams = ['Arizona', 'Wright St.', 'Seton Hall', 'TCU', 'Houston', ' UAB', 'Illinois', 'Chattanooga', 'Colorado St.', 'Michigan', 'Tennessee', 'Longwood', 'Ohio St.', 'Loyola Chicago', 'Villanova', 'Delaware']
+            east_teams = ['Baylor', 'Norfolk St.', 'North Caroina', 'Marquette', "Saint Mary's", 'Indiana', 'UCLA', 'Akron', 'Texas', 'Virginia Tech', 'Purdue', 'Yale', 'Murray St.', 'San Francisco', 'Kentucky', "Saint Peter's"]
+            west_teams = ['Gonzaga', 'Georgia St.', 'Boise St.', 'Memphis', 'UConn', 'New Mexico St.', 'Arkansas', 'Vermont', 'Alabama', 'Notre Dame', 'Texas Tech', 'Montana St.', 'Michigan St.', 'Davidson', 'Duke', 'Cal St. Fullerton']
+            midwest_teams = ['Kansas', 'Texas Southern', 'San Diego St.', 'Creighton', 'Iowa', 'Richmond', 'Providence', 'South Dakota St.', 'LSU', 'Iowa St.', 'Wisconsin', 'Colgate', 'Southern California', 'Miami', 'Auburn', 'Jacksonville St.']
+        elif year == '2019':
+            south_teams = []
+            east_teams = []
+            west_teams = []
+            midwest_teams = []
+        elif year == '2023':
+            south_teams = []
+            east_teams = []
+            west_teams = []
+            midwest_teams = []
+        else:
+            print("Invalid year. Try again.")
+            self.getBracketTeams()
         
         #south = teams[teams["TEAM"].isin(south_teams)]
         south = teams.loc[teams["TEAM"].isin(south_teams)].set_index("TEAM").reindex(south_teams).reset_index()

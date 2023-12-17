@@ -17,27 +17,27 @@ with open("requirements.txt", "r") as f:
 # pipreqs /path/to/project
 
 setup(
-    name = 'mypackage',                                 # Replace with your package name
+    name = 'bracket_package',                                 # Replace with your package name
     version='0.0.1',                                    # Set the package version
-    description = 'A sample Python package',            # Describe your package
-    author = 'Jake Rhodes',                             # Your name or the package author
-    author_email = 'rhodes@stat.byu.edu',               # Your email address
-    url = 'github.com/rhodes-stat386-fall2023/package-example',  # URL of your project repository
-    packages = find_packages(exclude = ['clean_data.py', 
-                                        'scrape_data.py']),  
+    description = 'Basketball bracket playoff generator',            # Describe your package
+    author = 'Kayla Tansiongco and Maclean Sherren',                             # Your name or the package author
+    author_email = 'kat73@student.byu.edu macleansherren@gmail.com',               # Your email address
+    url = 'https://github.com/tehnoobface/CBB_Final_Project.git',  # URL of your project repository
+    packages = find_packages(exclude = ['bracket_testing.ipynb', 'cbb_clean_eda.ipynb', 'cbb_data_analysis.ipynb']),  
                                                         # Automatically find all packages
     install_requires = requirements,                    # Package dependences
-    classifiers = [                                     # Add package classifiers (OPTIONAL)
-        'Development Status :: 3 - Alpha',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
-    ],
+    
+    #classifiers = [                                     # Add package classifiers (OPTIONAL)
+    #    'Development Status :: 3 - Alpha',
+    #    'Intended Audience :: Developers',
+    #    'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+    #    'Programming Language :: Python :: 3',
+    #    'Programming Language :: Python :: 3.6',
+    #    'Programming Language :: Python :: 3.7',
+    #    'Programming Language :: Python :: 3.8',
+    #   'Programming Language :: Python :: 3.9',
+    #],
     long_description = long_description,                # Use README content as long_description
     long_description_content_type = 'text/markdown',    # Specify the content type
-    package_data = {'mypackage': ['data/temple*.csv']}, # Dataset to include in package
+    package_data = {'bracket_package': ['data/*.csv']}, # Dataset to include in package
 )
