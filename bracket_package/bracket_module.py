@@ -62,10 +62,10 @@ class Bracket:
             west_teams = ['Gonzaga', 'Georgia St.', 'Boise St.', 'Memphis', 'UConn', 'New Mexico St.', 'Arkansas', 'Vermont', 'Alabama', 'Notre Dame', 'Texas Tech', 'Montana St.', 'Michigan St.', 'Davidson', 'Duke', 'Cal St. Fullerton']
             midwest_teams = ['Kansas', 'Texas Southern', 'San Diego St.', 'Creighton', 'Iowa', 'Richmond', 'Providence', 'South Dakota St.', 'LSU', 'Iowa St.', 'Wisconsin', 'Colgate', 'Southern California', 'Miami', 'Auburn', 'Jacksonville St.']
         elif year == '2019':
-            south_teams = []
-            east_teams = []
-            west_teams = []
-            midwest_teams = []
+            south_teams = ['Virginia', 'Gardner Webb', 'Mississippi', 'Oklahoma', 'Wisconsin', 'Oregon', 'Kansas St.', 'UC Irvine', 'Villanova', "Saint Mary's", 'Purdue', 'Old Dominion', 'Cincinnati', 'Iowa', 'Tennessee', 'Colgate']
+            east_teams = ['Duke', 'North Dakota St.', 'VCU', 'UCF', 'Mississippi St.', 'Liberty', 'Virginia Tech', 'Saint Louis', 'Maryland', 'Belmont', 'LSU', 'Yale', 'Louisville', 'Minnesota', 'Michigan St.', 'Bradley']
+            west_teams = ['Gonzaga', 'Fairleigh Dickinson', 'Syracuse', 'Baylor', 'Marquette', 'Murray St.', 'Florida St.', 'Vermont', 'Buffalo', 'Arizona St.', 'Texas Tech', 'Northern Kentucky', 'Nevada', 'Florida', 'Michigan', 'Montana']
+            midwest_teams = ['North Carolina', 'Iona', 'Utah St.', 'Washington', 'Auburn', 'New Mexico St.', 'Kansas', 'Northeastern', 'Iowa St.', 'Ohio St.', 'Houston', 'Georgia St.', 'Wofford', 'Seton Hall', 'Kentucky', 'Abilene Christian']
         elif year == '2023':
             south_teams = []
             east_teams = []
