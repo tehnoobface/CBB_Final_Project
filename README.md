@@ -30,7 +30,6 @@ python bracket
 ```
 
 ```
-...
 Choose a dataset. Data found in /data, with 2020 test dataset being ../data/cbb20.csv : data/cbb20.csv
 Select Ranking Method; POWER, RANK, WIN, SEED? Win
 Enter the Playoff Bracket Year (ex. '2020'): 2020

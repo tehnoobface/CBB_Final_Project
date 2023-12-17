@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
-#import matplotlib.pyplot as plt
-#import seaborn as sns
+import pkg_resources
 import os
 #import math
 
@@ -22,8 +21,23 @@ class Bracket:
         #teams = pd.read_csv('data/cbb20.csv')
         #return teams
         print("Choose a dataset. Data found in data, with 2020 test dataset being data/cbb20.csv : ", end='')
-        teams = pd.read_csv(input())    # Input path to (and including) the dataset
-        #print(teams.head())
+        #teams = pd.read_csv(input())    # Input path to (and including) the dataset
+        name = input()
+        if name == 'cbb20.csv':
+            teams = pd.read_csv('data/cbb20.csv')
+        elif name == 'cbb21.csv':
+            teams = pd.read_csv('data/cbb21.csv')
+        elif name == 'cbb22.csv':
+            teams = pd.read_csv('data/cbb22.csv')
+        elif name == 'cbb23.csv':
+            teams = pd.read_csv('data/cbb23.csv')
+        elif name == 'cbb19.csv':
+            teams = pd.read_csv('data/cbb19.csv')
+        else:
+            print("Invalid dataset. Try again.")
+            self.getData()
+        data_path = pkg_resources.resource_filename('bracket_package', teams)
+        teams = pd.read_csv(data_path)
         return teams
         
     """
