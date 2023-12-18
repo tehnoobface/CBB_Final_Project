@@ -6,8 +6,22 @@ import os
 
 
 class Bracket:
-    """Create a bracket object"""
+    """Class to represent a tournament bracket.
+
+    Attributes:
+        teams (pd.DataFrame): DataFrame containing information about the teams.
+        method (str): The ranking method used for the tournament.
+        south, east, west, midwest, region_winner (pd.DataFrame): Empty DataFrames to store regional information.
+
+    Methods:
+        getData: Load tournament data from a specified dataset.
+        getBracketTeams: Prompt the user to input the playoff bracket year and initialize regional teams.
+        getMethod: Prompt the user to select a ranking method for the tournament.
+        generateBracket: Simulate and print tournament rounds for a given region and ranking method.
+        simulateOverallWinner: Simulate and print the overall winner of the tournament.
+    """
     def __init__(self):
+        """Initialize a Bracket object."""
         self.teams = self.getData()
         self.method = self.getMethod()
         # Save the next four as empty dataframes:
@@ -18,6 +32,11 @@ class Bracket:
         self.region_winner = pd.DataFrame()
     
     def getData(self):
+        """Load tournament data from a user-specified dataset.
+
+        Returns:
+            pd.DataFrame: DataFrame containing information about the teams.
+        """
         #teams = pd.read_csv('data/cbb20.csv')
         #return teams
         print("Choose a dataset. Data found in data, with 2020 test dataset being data/cbb20.csv : ", end='')
@@ -57,6 +76,8 @@ class Bracket:
         return wins
     """
     def getBracketTeams(self):
+        """Prompt the user to input the playoff bracket year and initialize regional teams."""
+
         teams = self.teams
         print("Enter the Playoff Bracket Year (ex. '2020'): ", end='')
         year = input()
@@ -102,6 +123,11 @@ class Bracket:
         self.midwest = midwest
 
     def getMethod(self):
+        """Prompt the user to select a ranking method for the tournament.
+
+        Returns:
+            str: The selected ranking method.
+        """
         teams = self.teams
         #combine south, east, west, and midwest teams into one "teams" df:
         print("Select Ranking Method; POWER, RANK, WIN, SEED? ", end='')
@@ -126,6 +152,12 @@ class Bracket:
 
 
     def generateBracket(self, region_teams, method):
+        """Simulate and print tournament rounds for a given region and ranking method.
+
+        Args:
+            region_teams (pd.DataFrame): DataFrame containing regional teams.
+            method (str): The ranking method used for the tournament.
+        """
         num_teams = len(region_teams)
         num_rounds = int(4)
 
@@ -163,7 +195,14 @@ class Bracket:
 
             
     def simulateOverallWinner(self, method):
+        """Simulate and print the overall winner of the tournament.
 
+        Args:
+            method (str): The ranking method used for the tournament.
+
+        Returns:
+            pd.DataFrame: The overall winner's information.
+        """
         method = str(method)
 
         if method == 'W' or method == 'BARTHAG':
@@ -215,29 +254,62 @@ class Bracket:
 
 
 def getPower(teams):
+    """Get the 'BARTHAG' column from the teams DataFrame.
+
+    Args:
+        teams (pd.DataFrame): DataFrame containing information about the teams.
+
+    Returns:
+        str: The column name for the 'BARTHAG' values.
+    """
     power = 'BARTHAG'
     #power = teams['BARTHAG']
     #print("Power test! ", end='')
     return power
 
 def getRank(teams):
+    """Get the 'RK' column from the teams DataFrame.
+
+    Args:
+        teams (pd.DataFrame): DataFrame containing information about the teams.
+
+    Returns:
+        str: The column name for the 'RK' values.
+    """
     rank = 'RK'
     #rank = teams['RK']
     #print("Rank test! ", end='')
     return rank
 
 def getWins(teams):
+    """Get the 'W' column from the teams DataFrame.
+
+    Args:
+        teams (pd.DataFrame): DataFrame containing information about the teams.
+
+    Returns:
+        str: The column name for the 'W' values.
+    """
     wins = 'W'
     #wins = teams['W']
     #print("Win test! ", end='')
     return wins
 
 def getSeed(teams):
+    """Get the 'SEED' column from the teams DataFrame.
+
+    Args:
+        teams (pd.DataFrame): DataFrame containing information about the teams.
+
+    Returns:
+        str: The column name for the 'SEED' values.
+    """
     seed = 'SEED'
     return seed
 
 
 def run():
+    """Run the tournament simulation."""
     os.system('cls' if os.name == 'nt' else 'clear')
     bracket = Bracket()
     #bracket.getData()

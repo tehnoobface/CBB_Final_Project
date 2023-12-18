@@ -13,9 +13,3 @@ Welcome to CBB_Final_Project's documentation!
    my_markdown
    modules
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
