@@ -3,6 +3,9 @@
 
 The Basketball Bracket Generator package generates playoff brackets and outcomes for the NCAA March Madness Playoff tournament based on a method of prediction. Those methods are chosen by the user and include the power ranking, seeding (or rank for 2020 data), or total wins.
 
+# Sphinx Documentation
+https://tehnoobface.github.io/CBB_Final_Project/
+
 # Installation
 
 The pip package manager is used to install the bracket_package. The package requires python 3.7>=, numpy>=1.25.2, 
