@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>bracket_package package</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="prev" title="bracket_package" href="modules.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">CBB_Final_Project</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#welcome-to-cbb-final-project-s-documentation">Contents:</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="my_markdown.html" class="reference internal ">Our Project</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="modules.html" class="reference internal ">bracket_package</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="modules.html">bracket_package</a> &raquo;</li>
+    
+    <li>bracket_package package</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="modules.html"
+       title="previous chapter">← bracket_package</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="bracket-package-package">
+<h1>bracket_package package<a class="headerlink" href="#bracket-package-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-bracket_package.bracket">
+<span id="bracket-package-bracket-module"></span><h2>bracket_package.bracket module<a class="headerlink" href="#module-bracket_package.bracket" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="bracket_package.bracket.Bracket">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bracket_package.bracket.</span></span><span class="sig-name descname"><span class="pre">Bracket</span></span><a class="reference internal" href="_modules/bracket_package/bracket.html#Bracket"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bracket_package.bracket.Bracket" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to represent a tournament bracket.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bracket_package.bracket.Bracket.teams">
+<span class="sig-name descname"><span class="pre">teams</span></span><a class="headerlink" href="#bracket_package.bracket.Bracket.teams" title="Link to this definition">¶</a></dt>
+<dd><p>DataFrame containing information about the teams.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bracket_package.bracket.Bracket.method">
+<span class="sig-name descname"><span class="pre">method</span></span><a class="headerlink" href="#bracket_package.bracket.Bracket.method" title="Link to this definition">¶</a></dt>
+<dd><p>The ranking method used for the tournament.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">south,</span> <span class="pre">east,</span> <span class="pre">west,</span> <span class="pre">midwest,</span> <span class="pre">region_winner</span></span></dt>
+<dd><p>Empty DataFrames to store regional information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bracket_package.bracket.Bracket.getData">
+<span class="sig-name descname"><span class="pre">getData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#Bracket.getData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bracket_package.bracket.Bracket.getData" title="Link to this definition">¶</a></dt>
+<dd><p>Load tournament data from a specified dataset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bracket_package.bracket.Bracket.getBracketTeams">
+<span class="sig-name descname"><span class="pre">getBracketTeams</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#Bracket.getBracketTeams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bracket_package.bracket.Bracket.getBracketTeams" title="Link to this definition">¶</a></dt>
+<dd><p>Prompt the user to input the playoff bracket year and initialize regional teams.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bracket_package.bracket.Bracket.getMethod">
+<span class="sig-name descname"><span class="pre">getMethod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#Bracket.getMethod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bracket_package.bracket.Bracket.getMethod" title="Link to this definition">¶</a></dt>
+<dd><p>Prompt the user to select a ranking method for the tournament.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bracket_package.bracket.Bracket.generateBracket">
+<span class="sig-name descname"><span class="pre">generateBracket</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#Bracket.generateBracket"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bracket_package.bracket.Bracket.generateBracket" title="Link to this definition">¶</a></dt>
+<dd><p>Simulate and print tournament rounds for a given region and ranking method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bracket_package.bracket.Bracket.simulateOverallWinner">
+<span class="sig-name descname"><span class="pre">simulateOverallWinner</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#Bracket.simulateOverallWinner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bracket_package.bracket.Bracket.simulateOverallWinner" title="Link to this definition">¶</a></dt>
+<dd><p>Simulate and print the overall winner of the tournament.</p>
+</dd></dl>
+
+<p>Initialize a Bracket object.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">generateBracket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_teams</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#Bracket.generateBracket"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd><p>Simulate and print tournament rounds for a given region and ranking method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region_teams</strong> (<em>pd.DataFrame</em>) – DataFrame containing regional teams.</p></li>
+<li><p><strong>method</strong> (<em>str</em>) – The ranking method used for the tournament.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">getBracketTeams</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#Bracket.getBracketTeams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd><p>Prompt the user to input the playoff bracket year and initialize regional teams.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">getData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#Bracket.getData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<dd><p>Load tournament data from a user-specified dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame containing information about the teams.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">getMethod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#Bracket.getMethod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<dd><p>Prompt the user to select a ranking method for the tournament.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The selected ranking method.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">simulateOverallWinner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#Bracket.simulateOverallWinner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<dd><p>Simulate and print the overall winner of the tournament.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>method</strong> (<em>str</em>) – The ranking method used for the tournament.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The overall winner’s information.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bracket_package.bracket.getPower">
+<span class="sig-prename descclassname"><span class="pre">bracket_package.bracket.</span></span><span class="sig-name descname"><span class="pre">getPower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">teams</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#getPower"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bracket_package.bracket.getPower" title="Link to this definition">¶</a></dt>
+<dd><p>Get the ‘BARTHAG’ column from the teams DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>teams</strong> (<em>pd.DataFrame</em>) – DataFrame containing information about the teams.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The column name for the ‘BARTHAG’ values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bracket_package.bracket.getRank">
+<span class="sig-prename descclassname"><span class="pre">bracket_package.bracket.</span></span><span class="sig-name descname"><span class="pre">getRank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">teams</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#getRank"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bracket_package.bracket.getRank" title="Link to this definition">¶</a></dt>
+<dd><p>Get the ‘RK’ column from the teams DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>teams</strong> (<em>pd.DataFrame</em>) – DataFrame containing information about the teams.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The column name for the ‘RK’ values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bracket_package.bracket.getSeed">
+<span class="sig-prename descclassname"><span class="pre">bracket_package.bracket.</span></span><span class="sig-name descname"><span class="pre">getSeed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">teams</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#getSeed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bracket_package.bracket.getSeed" title="Link to this definition">¶</a></dt>
+<dd><p>Get the ‘SEED’ column from the teams DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>teams</strong> (<em>pd.DataFrame</em>) – DataFrame containing information about the teams.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The column name for the ‘SEED’ values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bracket_package.bracket.getWins">
+<span class="sig-prename descclassname"><span class="pre">bracket_package.bracket.</span></span><span class="sig-name descname"><span class="pre">getWins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">teams</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#getWins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bracket_package.bracket.getWins" title="Link to this definition">¶</a></dt>
+<dd><p>Get the ‘W’ column from the teams DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>teams</strong> (<em>pd.DataFrame</em>) – DataFrame containing information about the teams.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The column name for the ‘W’ values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bracket_package.bracket.run">
+<span class="sig-prename descclassname"><span class="pre">bracket_package.bracket.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/bracket.html#run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bracket_package.bracket.run" title="Link to this definition">¶</a></dt>
+<dd><p>Run the tournament simulation.</p>
+</dd></dl>
+
+</section>
+<section id="module-bracket_package.clean_data">
+<span id="bracket-package-clean-data-module"></span><h2>bracket_package.clean_data module<a class="headerlink" href="#module-bracket_package.clean_data" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="bracket_package.clean_data.clean_data">
+<span class="sig-prename descclassname"><span class="pre">bracket_package.clean_data.</span></span><span class="sig-name descname"><span class="pre">clean_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bracket_package/clean_data.html#clean_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bracket_package.clean_data.clean_data" title="Link to this definition">¶</a></dt>
+<dd><p>Clean the raw data by selecting specific columns and exporting the cleaned dataset.</p>
+<p>This function performs the following steps:
+1. Imports necessary packages (pandas and numpy).
+2. Prompts the user to input the path to the raw data file (CSV format).
+3. Reads the raw data into a pandas DataFrame.
+4. Selects specific columns (‘TEAM’, ‘RANK’, ‘WIN’, ‘BARCLAW’, ‘SEED’) from the raw data.
+5. Exports the cleaned data to a new CSV file named ‘clean_data.csv’ in the ‘data’ directory.</p>
+<p>Note:
+The user is prompted to input the path to the raw data file during execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-bracket_package">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bracket_package" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="modules.html"
+       title="previous chapter">← bracket_package</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2023, Maclean Sherren, Kayla Tansiongco.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

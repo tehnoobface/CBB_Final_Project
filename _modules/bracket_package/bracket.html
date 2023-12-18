@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>bracket_package.bracket</title>
+    
+          <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="../../_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../_static/theme-vendors.js"></script> -->
+      <script src="../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../genindex.html" />
+  <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../index.html" class="home-link">
+    
+      <span class="site-name">CBB_Final_Project</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../index.html#welcome-to-cbb-final-project-s-documentation">Contents:</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../my_markdown.html" class="reference internal ">Our Project</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../modules.html" class="reference internal ">bracket_package</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../index.html">Module code</a> &raquo;</li>
+    
+    <li>bracket_package.bracket</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <h1>Source code for bracket_package.bracket</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="c1">#import math</span>
+
+
+<div class="viewcode-block" id="Bracket">
+<a class="viewcode-back" href="../../bracket_package.html#bracket_package.bracket.Bracket">[docs]</a>
+<span class="k">class</span> <span class="nc">Bracket</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to represent a tournament bracket.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        teams (pd.DataFrame): DataFrame containing information about the teams.</span>
+<span class="sd">        method (str): The ranking method used for the tournament.</span>
+<span class="sd">        south, east, west, midwest, region_winner (pd.DataFrame): Empty DataFrames to store regional information.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        getData: Load tournament data from a specified dataset.</span>
+<span class="sd">        getBracketTeams: Prompt the user to input the playoff bracket year and initialize regional teams.</span>
+<span class="sd">        getMethod: Prompt the user to select a ranking method for the tournament.</span>
+<span class="sd">        generateBracket: Simulate and print tournament rounds for a given region and ranking method.</span>
+<span class="sd">        simulateOverallWinner: Simulate and print the overall winner of the tournament.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a Bracket object.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">teams</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMethod</span><span class="p">()</span>
+        <span class="c1"># Save the next four as empty dataframes:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">south</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">east</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">west</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">midwest</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">region_winner</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    
+<div class="viewcode-block" id="Bracket.getData">
+<a class="viewcode-back" href="../../bracket_package.html#bracket_package.bracket.Bracket.getData">[docs]</a>
+    <span class="k">def</span> <span class="nf">getData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load tournament data from a user-specified dataset.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: DataFrame containing information about the teams.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#teams = pd.read_csv(&#39;data/cbb20.csv&#39;)</span>
+        <span class="c1">#return teams</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Choose a dataset. Data found in data, with 2020 test dataset being data/cbb20.csv : &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="c1">#teams = pd.read_csv(input())    # Input path to (and including) the dataset</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;cbb20.csv&#39;</span><span class="p">:</span>
+            <span class="n">teams</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/cbb20.csv&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;cbb21.csv&#39;</span><span class="p">:</span>
+            <span class="n">teams</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/cbb21.csv&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;cbb22.csv&#39;</span><span class="p">:</span>
+            <span class="n">teams</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/cbb22.csv&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;cbb23.csv&#39;</span><span class="p">:</span>
+            <span class="n">teams</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/cbb23.csv&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;cbb19.csv&#39;</span><span class="p">:</span>
+            <span class="n">teams</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/cbb19.csv&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid dataset. Try again.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+        <span class="n">data_path</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;bracket_package&#39;</span><span class="p">,</span> <span class="n">teams</span><span class="p">)</span>
+        <span class="n">teams</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">teams</span></div>
+
+<span class="w">        </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    def getPower(self, teams):</span>
+<span class="sd">        power = teams[&#39;BARTHAG&#39;]</span>
+<span class="sd">        print(&quot;Power test! &quot;, end=&#39;&#39;)</span>
+<span class="sd">        return power</span>
+<span class="sd">        </span>
+<span class="sd">    def getRank(self, teams):</span>
+<span class="sd">        rank = teams[&#39;RK&#39;]</span>
+<span class="sd">        print(&quot;Rank test! &quot;, end=&#39;&#39;)</span>
+<span class="sd">        return rank</span>
+<span class="sd">        </span>
+<span class="sd">    def getWins(self, teams):</span>
+<span class="sd">        wins = teams[&#39;W&#39;]</span>
+<span class="sd">        print(&quot;Win test! &quot;, end=&#39;&#39;)</span>
+<span class="sd">        return wins</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Bracket.getBracketTeams">
+<a class="viewcode-back" href="../../bracket_package.html#bracket_package.bracket.Bracket.getBracketTeams">[docs]</a>
+    <span class="k">def</span> <span class="nf">getBracketTeams</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prompt the user to input the playoff bracket year and initialize regional teams.&quot;&quot;&quot;</span>
+
+        <span class="n">teams</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">teams</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Enter the Playoff Bracket Year (ex. &#39;2020&#39;): &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">year</span> <span class="o">==</span> <span class="s1">&#39;2020&#39;</span><span class="p">:</span>
+            <span class="n">south_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Baylor&quot;</span><span class="p">,</span> <span class="s2">&quot;Texas Southern&quot;</span><span class="p">,</span> <span class="s2">&quot;Cincinnati&quot;</span><span class="p">,</span> <span class="s2">&quot;VCU&quot;</span><span class="p">,</span> <span class="s2">&quot;Illinois&quot;</span><span class="p">,</span> <span class="s2">&quot;East Tennessee St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Auburn&quot;</span><span class="p">,</span> <span class="s2">&quot;College of Charleston&quot;</span><span class="p">,</span> <span class="s2">&quot;Iowa&quot;</span><span class="p">,</span> <span class="s2">&quot;Mississippi St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Seton Hall&quot;</span><span class="p">,</span> <span class="s2">&quot;Bowling Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Ohio St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Northern Iowa&quot;</span><span class="p">,</span> <span class="s2">&quot;Louisville&quot;</span><span class="p">,</span> <span class="s2">&quot;Murray St.&quot;</span><span class="p">]</span>
+            <span class="n">east_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;San Deigo St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Memphis&quot;</span><span class="p">,</span> <span class="s2">&quot;Saint Mary&#39;s&quot;</span><span class="p">,</span> <span class="s2">&quot;Texas Tech&quot;</span><span class="p">,</span> <span class="s2">&quot;Kentucky&quot;</span><span class="p">,</span> <span class="s2">&quot;Arizona St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Butler&quot;</span><span class="p">,</span> <span class="s2">&quot;Vermont&quot;</span><span class="p">,</span> <span class="s2">&quot;Creighton&quot;</span><span class="p">,</span> <span class="s2">&quot;Virginia&quot;</span><span class="p">,</span> <span class="s2">&quot;Maryland&quot;</span><span class="p">,</span> <span class="s2">&quot;UC Irvine&quot;</span><span class="p">,</span> <span class="s2">&quot;Rutgers&quot;</span><span class="p">,</span> <span class="s2">&quot;Houston&quot;</span><span class="p">,</span> <span class="s2">&quot;Duke&quot;</span><span class="p">,</span> <span class="s2">&quot;Wright St.&quot;</span><span class="p">]</span>
+            <span class="n">west_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Gonzaga&quot;</span><span class="p">,</span> <span class="s2">&quot;Montana&quot;</span><span class="p">,</span> <span class="s2">&quot;Florida&quot;</span><span class="p">,</span> <span class="s2">&quot;Stanford&quot;</span><span class="p">,</span> <span class="s2">&quot;Penn St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Stephenn F. Austin&quot;</span><span class="p">,</span> <span class="s2">&quot;Oregon&quot;</span><span class="p">,</span> <span class="s2">&quot;New Mexico State&quot;</span><span class="p">,</span> <span class="s2">&quot;Colorado&quot;</span><span class="p">,</span> <span class="s2">&quot;BYU&quot;</span><span class="p">,</span> <span class="s2">&quot;Villanova&quot;</span><span class="p">,</span> <span class="s2">&quot;Colgate&quot;</span><span class="p">,</span> <span class="s2">&quot;Michigan&quot;</span><span class="p">,</span> <span class="s2">&quot;Arkansas&quot;</span><span class="p">,</span> <span class="s2">&quot;West Virginia&quot;</span><span class="p">,</span> <span class="s2">&quot;North Dakota St.&quot;</span><span class="p">]</span>
+            <span class="n">midwest_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Kansas&quot;</span><span class="p">,</span> <span class="s2">&quot;Princeton&quot;</span><span class="p">,</span> <span class="s2">&quot;Wisconsin&quot;</span><span class="p">,</span> <span class="s2">&quot;Rhode Island&quot;</span><span class="p">,</span> <span class="s2">&quot;Arizona&quot;</span><span class="p">,</span> <span class="s2">&quot;Liberty&quot;</span><span class="p">,</span> <span class="s2">&quot;Michigan St.&quot;</span><span class="p">,</span> <span class="s2">&quot;North Texas&quot;</span><span class="p">,</span> <span class="s2">&quot;LSU&quot;</span><span class="p">,</span> <span class="s2">&quot;Purdue&quot;</span><span class="p">,</span> <span class="s2">&quot;Florida St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Little Rock&quot;</span><span class="p">,</span> <span class="s2">&quot;Marquette&quot;</span><span class="p">,</span> <span class="s2">&quot;Indiana&quot;</span><span class="p">,</span> <span class="s2">&quot;Dayton&quot;</span><span class="p">,</span> <span class="s2">&quot;Winthrop&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">year</span> <span class="o">==</span> <span class="s1">&#39;2021&#39;</span><span class="p">:</span>
+            <span class="n">south_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Baylor&quot;</span><span class="p">,</span> <span class="s2">&quot;Hartford&quot;</span><span class="p">,</span> <span class="s2">&quot;North Carolina&quot;</span><span class="p">,</span> <span class="s2">&quot;Wisconsin&quot;</span><span class="p">,</span> <span class="s2">&quot;Villanova&quot;</span><span class="p">,</span> <span class="s2">&quot;Winthrop&quot;</span><span class="p">,</span> <span class="s2">&quot;Purdue&quot;</span><span class="p">,</span> <span class="s2">&quot;North Texas&quot;</span><span class="p">,</span> <span class="s2">&quot;Texas Tech&quot;</span><span class="p">,</span> <span class="s2">&quot;Utah St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Arkansas&quot;</span><span class="p">,</span> <span class="s2">&quot;Colgate&quot;</span><span class="p">,</span> <span class="s2">&quot;Florida&quot;</span><span class="p">,</span> <span class="s2">&quot;Virginia Tech&quot;</span><span class="p">,</span> <span class="s2">&quot;Ohio St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Oral Roberts&quot;</span><span class="p">]</span>
+            <span class="n">east_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Michigan&quot;</span><span class="p">,</span> <span class="s2">&quot;Texas Southern&quot;</span><span class="p">,</span> <span class="s2">&quot;LSU&quot;</span><span class="p">,</span> <span class="s2">&quot;St. Bonaventure&quot;</span><span class="p">,</span> <span class="s2">&quot;Colorado&quot;</span><span class="p">,</span> <span class="s2">&quot;Georgetown&quot;</span><span class="p">,</span> <span class="s2">&quot;Florida St.&quot;</span><span class="p">,</span> <span class="s2">&quot;UNC Greensboro&quot;</span><span class="p">,</span> <span class="s2">&quot;BYU&quot;</span><span class="p">,</span> <span class="s2">&quot;UCLA&quot;</span><span class="p">,</span> <span class="s2">&quot;Abilene Christian&quot;</span><span class="p">,</span> <span class="s2">&quot;Texas&quot;</span><span class="p">,</span> <span class="s2">&quot;UConn&quot;</span><span class="p">,</span> <span class="s2">&quot;Maryland&quot;</span><span class="p">,</span> <span class="s2">&quot;Alabama&quot;</span><span class="p">,</span> <span class="s2">&quot;Iona&quot;</span><span class="p">]</span>
+            <span class="n">west_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Gonzaga&quot;</span><span class="p">,</span> <span class="s2">&quot;Norfolk St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Oklahoma&quot;</span><span class="p">,</span> <span class="s2">&quot;Missouri&quot;</span><span class="p">,</span> <span class="s2">&quot;Creighton&quot;</span><span class="p">,</span> <span class="s2">&quot;UC Santa Barbara&quot;</span><span class="p">,</span> <span class="s2">&quot;Virginia&quot;</span><span class="p">,</span> <span class="s2">&quot;Ohio&quot;</span><span class="p">,</span> <span class="s2">&quot;USC&quot;</span><span class="p">,</span> <span class="s2">&quot;Drake&quot;</span><span class="p">,</span> <span class="s2">&quot;Kansas&quot;</span><span class="p">,</span> <span class="s2">&quot;Eastern Washington&quot;</span><span class="p">,</span> <span class="s2">&quot;Oregon&quot;</span><span class="p">,</span> <span class="s2">&quot;VCU&quot;</span><span class="p">,</span> <span class="s2">&quot;Iowa&quot;</span><span class="p">,</span> <span class="s2">&quot;Grand Canyon&quot;</span><span class="p">]</span>
+            <span class="n">midwest_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Illinois&quot;</span><span class="p">,</span> <span class="s2">&quot;Drexel&quot;</span><span class="p">,</span> <span class="s2">&quot;Loyola Chicago&quot;</span><span class="p">,</span> <span class="s2">&quot;Georgia Tech&quot;</span><span class="p">,</span> <span class="s2">&quot;Tennessee&quot;</span><span class="p">,</span> <span class="s2">&quot;Oregon St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Oklahoma St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Liberty&quot;</span><span class="p">,</span> <span class="s2">&quot;San Diego St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Syracuse&quot;</span><span class="p">,</span> <span class="s2">&quot;West Virginia&quot;</span><span class="p">,</span> <span class="s2">&quot;Morehead St.&quot;</span><span class="p">,</span> <span class="s2">&quot;Clemson&quot;</span><span class="p">,</span> <span class="s2">&quot;Rutgers&quot;</span><span class="p">,</span> <span class="s2">&quot;Houston&quot;</span><span class="p">,</span> <span class="s2">&quot;Cleveland St.&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">year</span> <span class="o">==</span> <span class="s1">&#39;2022&#39;</span><span class="p">:</span>
+            <span class="n">south_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Arizona&#39;</span><span class="p">,</span> <span class="s1">&#39;Wright St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Seton Hall&#39;</span><span class="p">,</span> <span class="s1">&#39;TCU&#39;</span><span class="p">,</span> <span class="s1">&#39;Houston&#39;</span><span class="p">,</span> <span class="s1">&#39; UAB&#39;</span><span class="p">,</span> <span class="s1">&#39;Illinois&#39;</span><span class="p">,</span> <span class="s1">&#39;Chattanooga&#39;</span><span class="p">,</span> <span class="s1">&#39;Colorado St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Michigan&#39;</span><span class="p">,</span> <span class="s1">&#39;Tennessee&#39;</span><span class="p">,</span> <span class="s1">&#39;Longwood&#39;</span><span class="p">,</span> <span class="s1">&#39;Ohio St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Loyola Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;Villanova&#39;</span><span class="p">,</span> <span class="s1">&#39;Delaware&#39;</span><span class="p">]</span>
+            <span class="n">east_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Baylor&#39;</span><span class="p">,</span> <span class="s1">&#39;Norfolk St.&#39;</span><span class="p">,</span> <span class="s1">&#39;North Caroina&#39;</span><span class="p">,</span> <span class="s1">&#39;Marquette&#39;</span><span class="p">,</span> <span class="s2">&quot;Saint Mary&#39;s&quot;</span><span class="p">,</span> <span class="s1">&#39;Indiana&#39;</span><span class="p">,</span> <span class="s1">&#39;UCLA&#39;</span><span class="p">,</span> <span class="s1">&#39;Akron&#39;</span><span class="p">,</span> <span class="s1">&#39;Texas&#39;</span><span class="p">,</span> <span class="s1">&#39;Virginia Tech&#39;</span><span class="p">,</span> <span class="s1">&#39;Purdue&#39;</span><span class="p">,</span> <span class="s1">&#39;Yale&#39;</span><span class="p">,</span> <span class="s1">&#39;Murray St.&#39;</span><span class="p">,</span> <span class="s1">&#39;San Francisco&#39;</span><span class="p">,</span> <span class="s1">&#39;Kentucky&#39;</span><span class="p">,</span> <span class="s2">&quot;Saint Peter&#39;s&quot;</span><span class="p">]</span>
+            <span class="n">west_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Gonzaga&#39;</span><span class="p">,</span> <span class="s1">&#39;Georgia St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Boise St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Memphis&#39;</span><span class="p">,</span> <span class="s1">&#39;UConn&#39;</span><span class="p">,</span> <span class="s1">&#39;New Mexico St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Arkansas&#39;</span><span class="p">,</span> <span class="s1">&#39;Vermont&#39;</span><span class="p">,</span> <span class="s1">&#39;Alabama&#39;</span><span class="p">,</span> <span class="s1">&#39;Notre Dame&#39;</span><span class="p">,</span> <span class="s1">&#39;Texas Tech&#39;</span><span class="p">,</span> <span class="s1">&#39;Montana St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Michigan St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Davidson&#39;</span><span class="p">,</span> <span class="s1">&#39;Duke&#39;</span><span class="p">,</span> <span class="s1">&#39;Cal St. Fullerton&#39;</span><span class="p">]</span>
+            <span class="n">midwest_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Kansas&#39;</span><span class="p">,</span> <span class="s1">&#39;Texas Southern&#39;</span><span class="p">,</span> <span class="s1">&#39;San Diego St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Creighton&#39;</span><span class="p">,</span> <span class="s1">&#39;Iowa&#39;</span><span class="p">,</span> <span class="s1">&#39;Richmond&#39;</span><span class="p">,</span> <span class="s1">&#39;Providence&#39;</span><span class="p">,</span> <span class="s1">&#39;South Dakota St.&#39;</span><span class="p">,</span> <span class="s1">&#39;LSU&#39;</span><span class="p">,</span> <span class="s1">&#39;Iowa St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Wisconsin&#39;</span><span class="p">,</span> <span class="s1">&#39;Colgate&#39;</span><span class="p">,</span> <span class="s1">&#39;Southern California&#39;</span><span class="p">,</span> <span class="s1">&#39;Miami&#39;</span><span class="p">,</span> <span class="s1">&#39;Auburn&#39;</span><span class="p">,</span> <span class="s1">&#39;Jacksonville St.&#39;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">year</span> <span class="o">==</span> <span class="s1">&#39;2019&#39;</span><span class="p">:</span>
+            <span class="n">south_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Virginia&#39;</span><span class="p">,</span> <span class="s1">&#39;Gardner Webb&#39;</span><span class="p">,</span> <span class="s1">&#39;Mississippi&#39;</span><span class="p">,</span> <span class="s1">&#39;Oklahoma&#39;</span><span class="p">,</span> <span class="s1">&#39;Wisconsin&#39;</span><span class="p">,</span> <span class="s1">&#39;Oregon&#39;</span><span class="p">,</span> <span class="s1">&#39;Kansas St.&#39;</span><span class="p">,</span> <span class="s1">&#39;UC Irvine&#39;</span><span class="p">,</span> <span class="s1">&#39;Villanova&#39;</span><span class="p">,</span> <span class="s2">&quot;Saint Mary&#39;s&quot;</span><span class="p">,</span> <span class="s1">&#39;Purdue&#39;</span><span class="p">,</span> <span class="s1">&#39;Old Dominion&#39;</span><span class="p">,</span> <span class="s1">&#39;Cincinnati&#39;</span><span class="p">,</span> <span class="s1">&#39;Iowa&#39;</span><span class="p">,</span> <span class="s1">&#39;Tennessee&#39;</span><span class="p">,</span> <span class="s1">&#39;Colgate&#39;</span><span class="p">]</span>
+            <span class="n">east_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Duke&#39;</span><span class="p">,</span> <span class="s1">&#39;North Dakota St.&#39;</span><span class="p">,</span> <span class="s1">&#39;VCU&#39;</span><span class="p">,</span> <span class="s1">&#39;UCF&#39;</span><span class="p">,</span> <span class="s1">&#39;Mississippi St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Liberty&#39;</span><span class="p">,</span> <span class="s1">&#39;Virginia Tech&#39;</span><span class="p">,</span> <span class="s1">&#39;Saint Louis&#39;</span><span class="p">,</span> <span class="s1">&#39;Maryland&#39;</span><span class="p">,</span> <span class="s1">&#39;Belmont&#39;</span><span class="p">,</span> <span class="s1">&#39;LSU&#39;</span><span class="p">,</span> <span class="s1">&#39;Yale&#39;</span><span class="p">,</span> <span class="s1">&#39;Louisville&#39;</span><span class="p">,</span> <span class="s1">&#39;Minnesota&#39;</span><span class="p">,</span> <span class="s1">&#39;Michigan St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Bradley&#39;</span><span class="p">]</span>
+            <span class="n">west_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Gonzaga&#39;</span><span class="p">,</span> <span class="s1">&#39;Fairleigh Dickinson&#39;</span><span class="p">,</span> <span class="s1">&#39;Syracuse&#39;</span><span class="p">,</span> <span class="s1">&#39;Baylor&#39;</span><span class="p">,</span> <span class="s1">&#39;Marquette&#39;</span><span class="p">,</span> <span class="s1">&#39;Murray St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Florida St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Vermont&#39;</span><span class="p">,</span> <span class="s1">&#39;Buffalo&#39;</span><span class="p">,</span> <span class="s1">&#39;Arizona St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Texas Tech&#39;</span><span class="p">,</span> <span class="s1">&#39;Northern Kentucky&#39;</span><span class="p">,</span> <span class="s1">&#39;Nevada&#39;</span><span class="p">,</span> <span class="s1">&#39;Florida&#39;</span><span class="p">,</span> <span class="s1">&#39;Michigan&#39;</span><span class="p">,</span> <span class="s1">&#39;Montana&#39;</span><span class="p">]</span>
+            <span class="n">midwest_teams</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;North Carolina&#39;</span><span class="p">,</span> <span class="s1">&#39;Iona&#39;</span><span class="p">,</span> <span class="s1">&#39;Utah St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Washington&#39;</span><span class="p">,</span> <span class="s1">&#39;Auburn&#39;</span><span class="p">,</span> <span class="s1">&#39;New Mexico St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Kansas&#39;</span><span class="p">,</span> <span class="s1">&#39;Northeastern&#39;</span><span class="p">,</span> <span class="s1">&#39;Iowa St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Ohio St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Houston&#39;</span><span class="p">,</span> <span class="s1">&#39;Georgia St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Wofford&#39;</span><span class="p">,</span> <span class="s1">&#39;Seton Hall&#39;</span><span class="p">,</span> <span class="s1">&#39;Kentucky&#39;</span><span class="p">,</span> <span class="s1">&#39;Abilene Christian&#39;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">year</span> <span class="o">==</span> <span class="s1">&#39;2023&#39;</span><span class="p">:</span>
+            <span class="n">south_teams</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">east_teams</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">west_teams</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">midwest_teams</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid year. Try again.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getBracketTeams</span><span class="p">()</span>
+        
+        <span class="c1">#south = teams[teams[&quot;TEAM&quot;].isin(south_teams)]</span>
+        <span class="n">south</span> <span class="o">=</span> <span class="n">teams</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">teams</span><span class="p">[</span><span class="s2">&quot;TEAM&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">south_teams</span><span class="p">)]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;TEAM&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">south_teams</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="n">east</span> <span class="o">=</span> <span class="n">teams</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">teams</span><span class="p">[</span><span class="s2">&quot;TEAM&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">east_teams</span><span class="p">)]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;TEAM&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">east_teams</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="n">west</span> <span class="o">=</span> <span class="n">teams</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">teams</span><span class="p">[</span><span class="s2">&quot;TEAM&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">west_teams</span><span class="p">)]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;TEAM&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">west_teams</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="n">midwest</span> <span class="o">=</span> <span class="n">teams</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">teams</span><span class="p">[</span><span class="s2">&quot;TEAM&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">midwest_teams</span><span class="p">)]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;TEAM&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">midwest_teams</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="c1"># print south to double check</span>
+        <span class="c1">#print(south)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">south</span> <span class="o">=</span> <span class="n">south</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">east</span> <span class="o">=</span> <span class="n">east</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">west</span> <span class="o">=</span> <span class="n">west</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">midwest</span> <span class="o">=</span> <span class="n">midwest</span></div>
+
+
+<div class="viewcode-block" id="Bracket.getMethod">
+<a class="viewcode-back" href="../../bracket_package.html#bracket_package.bracket.Bracket.getMethod">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMethod</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prompt the user to select a ranking method for the tournament.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The selected ranking method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">teams</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">teams</span>
+        <span class="c1">#combine south, east, west, and midwest teams into one &quot;teams&quot; df:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Select Ranking Method; POWER, RANK, WIN, SEED? &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">rank</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="s1">&#39;POWER&#39;</span><span class="p">:</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="n">getPower</span><span class="p">(</span><span class="n">teams</span><span class="p">)</span>
+            <span class="c1">#print(method.head())  # Test methods, works! All power column values are stored as list in method</span>
+            <span class="k">return</span> <span class="n">method</span>
+        <span class="k">elif</span> <span class="n">rank</span> <span class="o">==</span> <span class="s1">&#39;RANK&#39;</span><span class="p">:</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="n">getRank</span><span class="p">(</span><span class="n">teams</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">method</span>
+        <span class="k">elif</span> <span class="n">rank</span> <span class="o">==</span> <span class="s1">&#39;WIN&#39;</span><span class="p">:</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="n">getWins</span><span class="p">(</span><span class="n">teams</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">method</span>
+        <span class="k">elif</span> <span class="n">rank</span> <span class="o">==</span> <span class="s1">&#39;SEED&#39;</span><span class="p">:</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="n">getSeed</span><span class="p">(</span><span class="n">teams</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">method</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid input. Try again.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getMethod</span><span class="p">()</span></div>
+
+            <span class="c1">#getMethod(self)</span>
+
+
+<div class="viewcode-block" id="Bracket.generateBracket">
+<a class="viewcode-back" href="../../bracket_package.html#bracket_package.bracket.Bracket.generateBracket">[docs]</a>
+    <span class="k">def</span> <span class="nf">generateBracket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region_teams</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Simulate and print tournament rounds for a given region and ranking method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            region_teams (pd.DataFrame): DataFrame containing regional teams.</span>
+<span class="sd">            method (str): The ranking method used for the tournament.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">num_teams</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">region_teams</span><span class="p">)</span>
+        <span class="n">num_rounds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">round_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_rounds</span><span class="p">):</span>
+            <span class="n">round_teams</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_teams</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">round_num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+            <span class="n">spacing</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">num_rounds</span> <span class="o">+</span> <span class="n">round_num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="n">winners</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">winner</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Round </span><span class="si">{</span><span class="n">round_num</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">round_teams</span><span class="p">):</span>
+                <span class="c1"># team1 is the first team in the TEAM column of region_teams:</span>
+                <span class="n">team1</span> <span class="o">=</span> <span class="n">region_teams</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span>
+                <span class="n">team2</span> <span class="o">=</span> <span class="n">region_teams</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">method</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;W&#39;</span> <span class="ow">or</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;BARTHAG&#39;</span><span class="p">:</span>
+                    <span class="n">winner</span> <span class="o">=</span> <span class="n">team1</span> <span class="k">if</span> <span class="n">team1</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">team2</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="k">else</span> <span class="n">team2</span>
+                <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;RK&#39;</span> <span class="ow">or</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;SEED&#39;</span><span class="p">:</span>
+                    <span class="n">winner</span> <span class="o">=</span> <span class="n">team1</span> <span class="k">if</span> <span class="n">team1</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">team2</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="k">else</span> <span class="n">team2</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid method. Try again.&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">getMethod</span><span class="p">()</span>
+                <span class="n">winners</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">winner</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">spacing</span><span class="si">}{</span><span class="n">team1</span><span class="p">[</span><span class="s1">&#39;TEAM&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> vs </span><span class="si">{</span><span class="n">team2</span><span class="p">[</span><span class="s1">&#39;TEAM&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> -&gt; Winner: </span><span class="si">{</span><span class="n">winner</span><span class="p">[</span><span class="s1">&#39;TEAM&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="n">region_teams</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">winners</span><span class="p">)</span>
+
+        <span class="n">final_winner</span> <span class="o">=</span> <span class="n">region_teams</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;TEAM&#39;</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">final_winner</span><span class="si">}</span><span class="s2"> advances to the Final Four!&quot;</span><span class="p">)</span></div>
+
+
+        <span class="c1">#print(self.region_winner)  # Prints the dataframe of winners after all rounds</span>
+        <span class="c1">#return self.region_winner</span>
+            
+
+            
+<div class="viewcode-block" id="Bracket.simulateOverallWinner">
+<a class="viewcode-back" href="../../bracket_package.html#bracket_package.bracket.Bracket.simulateOverallWinner">[docs]</a>
+    <span class="k">def</span> <span class="nf">simulateOverallWinner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Simulate and print the overall winner of the tournament.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            method (str): The ranking method used for the tournament.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: The overall winner&#39;s information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;W&#39;</span> <span class="ow">or</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;BARTHAG&#39;</span><span class="p">:</span>
+            <span class="n">winner1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">south</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">south</span><span class="p">[</span><span class="n">method</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()]</span>
+            <span class="n">winner2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">east</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">east</span><span class="p">[</span><span class="n">method</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()]</span>
+            <span class="n">winner3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">west</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">west</span><span class="p">[</span><span class="n">method</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()]</span>
+            <span class="n">winner4</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">midwest</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">midwest</span><span class="p">[</span><span class="n">method</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()]</span>
+        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;RK&#39;</span> <span class="ow">or</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;SEED&#39;</span><span class="p">:</span>
+            <span class="n">winner1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">south</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">south</span><span class="p">[</span><span class="n">method</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()]</span>
+            <span class="n">winner2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">east</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">east</span><span class="p">[</span><span class="n">method</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()]</span>
+            <span class="n">winner3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">west</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">west</span><span class="p">[</span><span class="n">method</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()]</span>
+            <span class="n">winner4</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">midwest</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">midwest</span><span class="p">[</span><span class="n">method</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An Error Occured While Getting Final 4.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getMethod</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final Four: </span><span class="si">{</span><span class="n">winner1</span><span class="p">[</span><span class="s1">&#39;TEAM&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">winner2</span><span class="p">[</span><span class="s1">&#39;TEAM&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">winner3</span><span class="p">[</span><span class="s1">&#39;TEAM&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">winner4</span><span class="p">[</span><span class="s1">&#39;TEAM&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;W&#39;</span> <span class="ow">or</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;BARTHAG&#39;</span><span class="p">:</span>
+            <span class="n">final_winner1</span> <span class="o">=</span> <span class="n">winner1</span> <span class="k">if</span> <span class="n">winner1</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">winner2</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="k">else</span> <span class="n">winner2</span>
+            <span class="n">final_winner2</span> <span class="o">=</span> <span class="n">winner3</span> <span class="k">if</span> <span class="n">winner3</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">winner4</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="k">else</span> <span class="n">winner4</span>
+        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;RK&#39;</span> <span class="ow">or</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;SEED&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">winner1</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">winner2</span><span class="p">[</span><span class="n">method</span><span class="p">]:</span>
+                <span class="n">final_winner1</span> <span class="o">=</span> <span class="n">winner1</span>
+            <span class="k">elif</span> <span class="n">winner1</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">winner2</span><span class="p">[</span><span class="n">method</span><span class="p">]:</span>
+                <span class="n">final_winner1</span> <span class="o">=</span> <span class="n">winner2</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The teams are the same Seed and tied. Selecting Random Winner.&quot;</span><span class="p">)</span>
+                <span class="n">final_winner1</span> <span class="o">=</span> <span class="n">winner1</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">winner2</span>
+            <span class="k">if</span> <span class="n">winner3</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">winner4</span><span class="p">[</span><span class="n">method</span><span class="p">]:</span>
+                <span class="n">final_winner2</span> <span class="o">=</span> <span class="n">winner3</span>
+            <span class="k">elif</span> <span class="n">winner3</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">winner4</span><span class="p">[</span><span class="n">method</span><span class="p">]:</span>
+                <span class="n">final_winner2</span> <span class="o">=</span> <span class="n">winner4</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The teams are the same Seed and tied. Selecting Random Winner.&quot;</span><span class="p">)</span>
+                <span class="n">final_winner2</span> <span class="o">=</span> <span class="n">winner3</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">winner4</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An Error Occured While Ranking the Final 4.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getMethod</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Playoff Finals: </span><span class="si">{</span><span class="n">final_winner1</span><span class="p">[</span><span class="s1">&#39;TEAM&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> vs </span><span class="si">{</span><span class="n">final_winner2</span><span class="p">[</span><span class="s1">&#39;TEAM&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Determine the overall winner</span>
+        <span class="n">overall_winner</span> <span class="o">=</span> <span class="n">final_winner1</span> <span class="k">if</span> <span class="n">final_winner1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">final_winner2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="k">else</span> <span class="n">final_winner2</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NCAA D1 Division Champs: </span><span class="si">{</span><span class="n">overall_winner</span><span class="p">[</span><span class="s1">&#39;TEAM&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">overall_winner</span></div>
+</div>
+
+
+        
+
+
+<div class="viewcode-block" id="getPower">
+<a class="viewcode-back" href="../../bracket_package.html#bracket_package.bracket.getPower">[docs]</a>
+<span class="k">def</span> <span class="nf">getPower</span><span class="p">(</span><span class="n">teams</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the &#39;BARTHAG&#39; column from the teams DataFrame.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        teams (pd.DataFrame): DataFrame containing information about the teams.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The column name for the &#39;BARTHAG&#39; values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">power</span> <span class="o">=</span> <span class="s1">&#39;BARTHAG&#39;</span>
+    <span class="c1">#power = teams[&#39;BARTHAG&#39;]</span>
+    <span class="c1">#print(&quot;Power test! &quot;, end=&#39;&#39;)</span>
+    <span class="k">return</span> <span class="n">power</span></div>
+
+
+<div class="viewcode-block" id="getRank">
+<a class="viewcode-back" href="../../bracket_package.html#bracket_package.bracket.getRank">[docs]</a>
+<span class="k">def</span> <span class="nf">getRank</span><span class="p">(</span><span class="n">teams</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the &#39;RK&#39; column from the teams DataFrame.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        teams (pd.DataFrame): DataFrame containing information about the teams.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The column name for the &#39;RK&#39; values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rank</span> <span class="o">=</span> <span class="s1">&#39;RK&#39;</span>
+    <span class="c1">#rank = teams[&#39;RK&#39;]</span>
+    <span class="c1">#print(&quot;Rank test! &quot;, end=&#39;&#39;)</span>
+    <span class="k">return</span> <span class="n">rank</span></div>
+
+
+<div class="viewcode-block" id="getWins">
+<a class="viewcode-back" href="../../bracket_package.html#bracket_package.bracket.getWins">[docs]</a>
+<span class="k">def</span> <span class="nf">getWins</span><span class="p">(</span><span class="n">teams</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the &#39;W&#39; column from the teams DataFrame.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        teams (pd.DataFrame): DataFrame containing information about the teams.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The column name for the &#39;W&#39; values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wins</span> <span class="o">=</span> <span class="s1">&#39;W&#39;</span>
+    <span class="c1">#wins = teams[&#39;W&#39;]</span>
+    <span class="c1">#print(&quot;Win test! &quot;, end=&#39;&#39;)</span>
+    <span class="k">return</span> <span class="n">wins</span></div>
+
+
+<div class="viewcode-block" id="getSeed">
+<a class="viewcode-back" href="../../bracket_package.html#bracket_package.bracket.getSeed">[docs]</a>
+<span class="k">def</span> <span class="nf">getSeed</span><span class="p">(</span><span class="n">teams</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the &#39;SEED&#39; column from the teams DataFrame.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        teams (pd.DataFrame): DataFrame containing information about the teams.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The column name for the &#39;SEED&#39; values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">seed</span> <span class="o">=</span> <span class="s1">&#39;SEED&#39;</span>
+    <span class="k">return</span> <span class="n">seed</span></div>
+
+
+
+<div class="viewcode-block" id="run">
+<a class="viewcode-back" href="../../bracket_package.html#bracket_package.bracket.run">[docs]</a>
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the tournament simulation.&quot;&quot;&quot;</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;cls&#39;</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span> <span class="k">else</span> <span class="s1">&#39;clear&#39;</span><span class="p">)</span>
+    <span class="n">bracket</span> <span class="o">=</span> <span class="n">Bracket</span><span class="p">()</span>
+    <span class="c1">#bracket.getData()</span>
+    <span class="c1">#bracket.getMethod()</span>
+    <span class="n">bracket</span><span class="o">.</span><span class="n">getBracketTeams</span><span class="p">()</span>
+    <span class="n">bracket</span><span class="o">.</span><span class="n">generateBracket</span><span class="p">(</span><span class="n">bracket</span><span class="o">.</span><span class="n">south</span><span class="p">,</span> <span class="n">bracket</span><span class="o">.</span><span class="n">method</span><span class="p">)</span>
+    <span class="n">bracket</span><span class="o">.</span><span class="n">generateBracket</span><span class="p">(</span><span class="n">bracket</span><span class="o">.</span><span class="n">east</span><span class="p">,</span> <span class="n">bracket</span><span class="o">.</span><span class="n">method</span><span class="p">)</span>
+    <span class="n">bracket</span><span class="o">.</span><span class="n">generateBracket</span><span class="p">(</span><span class="n">bracket</span><span class="o">.</span><span class="n">west</span><span class="p">,</span> <span class="n">bracket</span><span class="o">.</span><span class="n">method</span><span class="p">)</span>
+    <span class="n">bracket</span><span class="o">.</span><span class="n">generateBracket</span><span class="p">(</span><span class="n">bracket</span><span class="o">.</span><span class="n">midwest</span><span class="p">,</span> <span class="n">bracket</span><span class="o">.</span><span class="n">method</span><span class="p">)</span>
+    <span class="n">bracket</span><span class="o">.</span><span class="n">simulateOverallWinner</span><span class="p">(</span><span class="n">bracket</span><span class="o">.</span><span class="n">method</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2023, Maclean Sherren, Kayla Tansiongco.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>
